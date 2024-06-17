@@ -3,7 +3,9 @@ const COLOR = {
   BLUE_WHALE: '#112340',
   WHITE: '#FFFFFF',
   BLUISH_GREY: '#7D8797',
+  GREEN_WHITE:'#E9E9E9',
   BLACK: '#000000',
+  TRANSPARENT: '#FFFFFF00',
 };
 
 export default COLOR;

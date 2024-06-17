@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, View } from 'react-native';
 import ICON from '../../assets/icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLOR from '../../utils/ColorSystem';
 import Font from '../../assets/fonts';
+import styles from './styles';
+import ButtonBasic from '../../components/ButtonBasic';
+import { verticalScale } from '../../utils/Metric';
+import InputTextBasic from '../../components/InputTextBasic';
 
 class Login extends Component {
   constructor(props) {
@@ -12,31 +16,22 @@ class Login extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1 }}>
-        <View style={{ marginTop: 64, flex:1, margin: 24, }}>
-          <Image source={ICON.ic_header_app} style={{width:220, height:25, alignSelf:'center'}}/>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.margin}>
+          <Image source={ICON.ic_header_app} style={styles.iconHeader}/>
 
-          <Text style={{color:COLOR.BLUE_PRIMER, fontSize:20, maxWidth:'50%',fontFamily: Font.NunitoBlack}}>Masuk dan mulai belajar</Text>
+          <Text style={styles.headerText}>Masuk dan mulai belajar</Text>
+          <View style={{marginTop: verticalScale(40)}}>
 
-          <TouchableOpacity style={{
-            backgroundColor:COLOR.BLUE_PRIMER,
-            padding:12,
-            alignItems:'center',
-            borderRadius: 10,
-            marginHorizontal: 24,
-          }}>
-            <Text style={{color:COLOR.WHITE, fontSize:18, fontWeight:600}}>Masuk</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={{
-            padding:12,
-            alignItems:'center',
-            borderRadius: 10,
-            marginHorizontal: 24,
-          }}>
-            <Text style={{fontSize:18, color:COLOR.BLUISH_GREY}}>Buat akun baru</Text>
-          </TouchableOpacity>
-        </View>
+          <InputTextBasic inputTitle={'Email'} inputType={'email'}/>
+          <InputTextBasic inputTitle={'Password'} inputType={'password'} />
+          <ButtonBasic textColor={COLOR.BLUISH_GREY} background={COLOR.TRANSPARENT} buttonText={'Lupa Katasandi'}/>
+          
+          <View style={{marginTop: verticalScale(40)}}/>
+          <ButtonBasic textColor={COLOR.WHITE} background={COLOR.BLUE_PRIMER} buttonText={'Masuk'}/>
+          <ButtonBasic textColor={COLOR.BLUISH_GREY} background={COLOR.TRANSPARENT} buttonText={'Buat akun baru'}/>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }

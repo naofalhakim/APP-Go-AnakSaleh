@@ -14,7 +14,7 @@ export default function AppNav() {
                 orientation:'portrait',
                 headerShown:false,
             }}>
-                <Stack.Screen name={SCREEN_NAME.LOGIN} component={Login} options={{}} />
+                <Stack.Screen name={SCREEN_NAME.LOGIN} component={Login}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

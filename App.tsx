@@ -8,14 +8,14 @@
 import React, {useEffect} from 'react';
 
 import SplashScreen from 'react-native-splash-screen';
-import Login from './src/screens/Login';
+import AppNav from './src/AppNavigator';
 
 function App(): React.JSX.Element {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
-  return <Login />;
+  return <AppNav />;
 }
 
 export default App;

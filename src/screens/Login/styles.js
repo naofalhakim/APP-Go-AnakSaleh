@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(21),
         maxWidth: '50%',
         fontFamily: Font.NunitoMedium,
-        marginLeft: verticalScale(28),
         marginTop: verticalScale(80)
     },
 });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 import Font from '../../assets/fonts';
 
 class ButtonBasic extends Component {
@@ -8,23 +8,30 @@ class ButtonBasic extends Component {
   }
 
   render() {
-    const {buttonText, background, textColor} = this.props;
+    const {buttonText, background, textColor, fontSize, underline, containerStyle } = this.props;
     return (
-        <TouchableOpacity style={styles.container(background)}>
-            <Text style={styles.buttonText(textColor)}>{buttonText}</Text>
+      <View style={[{display:'flex'}, containerStyle]}>
+        <TouchableOpacity style={styles.buttonContainer(background)}>
+            <Text style={styles.buttonText(textColor, fontSize, underline)}>{buttonText}</Text>
           </TouchableOpacity>
+          </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    container:(bgColor)=> ({
+    buttonContainer:(bgColor)=> ({
         backgroundColor:bgColor,
         padding:12,
-        alignItems:'center',
         borderRadius: 10,
       }),
-      buttonText:(textColor)=>({color:textColor, fontSize:18, fontFamily: Font.NunitoMedium})
+      buttonText:(textColor, fontSize, underline)=>({
+        alignSelf: 'center',
+        color:textColor, 
+        fontSize: fontSize ||18, 
+        fontFamily: Font.NunitoMedium,
+        textDecorationLine: underline ? 'underline' : 'none',
+      })
 })
 
 export default ButtonBasic;

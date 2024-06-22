@@ -7,11 +7,17 @@ class ButtonBasic extends Component {
     super(props);
   }
 
+  _onPressAction(){
+    if(this.props.onPress){
+      this.props.onPress();
+    }
+  }
+
   render() {
     const {buttonText, background, textColor, fontSize, underline, containerStyle } = this.props;
     return (
       <View style={[{display:'flex'}, containerStyle]}>
-        <TouchableOpacity style={styles.buttonContainer(background)}>
+        <TouchableOpacity style={styles.buttonContainer(background)} onPress={()=> this._onPressAction()}>
             <Text style={styles.buttonText(textColor, fontSize, underline)}>{buttonText}</Text>
           </TouchableOpacity>
           </View>

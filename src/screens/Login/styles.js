@@ -16,6 +16,13 @@ const styles = StyleSheet.create({
         fontFamily: Font.NunitoMedium,
         marginTop: verticalScale(80)
     },
+    underlineText: {
+        color: COLOR.BLUISH_GREY,
+        textDecorationLine: 'underline',
+        fontSize:moderateScale(14),
+        fontFamily: Font.NunitoRegular,
+        marginVertical: verticalScale(4),
+    },
 });
 
 export default styles;

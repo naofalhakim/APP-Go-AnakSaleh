@@ -7,6 +7,7 @@ import ButtonBasic from '../../components/ButtonBasic';
 import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
 import HeaderBasic from '../../components/HeaderBasic';
+import { SCREEN_NAME } from '../../utils/Enum';
 
 class ForgotPassword extends Component {
   formValues = {
@@ -27,7 +28,7 @@ class ForgotPassword extends Component {
 
   _doSubmit() {
     console.log('Login');
-    this.props.navigation.navigate('ResetPassword')
+    this.props.navigation.navigate(SCREEN_NAME.RESET_PASSWORD)
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {

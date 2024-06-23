@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
       buttonText:(textColor, fontSize, underline)=>({
         alignSelf: 'center',
         color: textColor || this.textColor, 
-        fontSize: fontSize ||18, 
-        fontFamily: Font.NunitoMedium,
+        fontSize: fontSize || 18, 
+        fontFamily: Font.NunitoSemiBold,
         textDecorationLine: underline ? 'underline' : 'none',
       })
 })

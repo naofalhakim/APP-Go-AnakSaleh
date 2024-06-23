@@ -7,6 +7,7 @@ import styles from './styles';
 import ButtonBasic from '../../components/ButtonBasic';
 import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
+import { SCREEN_NAME } from '../../utils/Enum';
 
 class Login extends Component {
   formValues = {
@@ -32,6 +33,7 @@ class Login extends Component {
 
   _doLogin() {
     console.log('Login');
+    this.props.navigation.navigate(SCREEN_NAME.PROFILE);
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {
@@ -73,7 +75,7 @@ class Login extends Component {
                 onChangeText={this._inputValidation}
               />
 
-              <Text onPress={() => this.props.navigation.navigate('ForgotPassword')} style={styles.underlineText}>Lupa Kata Sandi</Text>
+              <Text onPress={() => this.props.navigation.navigate(SCREEN_NAME.FORGOT_PASSWORD)} style={styles.underlineText}>Lupa Kata Sandi</Text>
 
               <View style={{ marginTop: verticalScale(40) }} />
               <ButtonBasic
@@ -87,7 +89,7 @@ class Login extends Component {
                 textColor={COLOR.BLUISH_GREY}
                 background={COLOR.TRANSPARENT}
                 buttonText={'Buat akun baru'}
-                onPress={() => this.props.navigation.navigate('Register')}
+                onPress={() => this.props.navigation.navigate(SCREEN_NAME.REGISTER)}
               />
             </View>
           </View>

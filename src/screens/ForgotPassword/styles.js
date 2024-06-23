@@ -8,20 +8,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     margin: { margin: 24, },
-    iconHeader: { width: horizontalScale(210), height: verticalScale(25), alignSelf: 'center' },
-    headerText: {
-        color: COLOR.BLACK,
-        fontSize: moderateScale(21),
-        maxWidth: '50%',
-        fontFamily: Font.NunitoMedium,
-        marginTop: verticalScale(80)
-    },
-    underlineText: {
-        color: COLOR.BLUISH_GREY,
-        fontSize:moderateScale(12),
-        fontFamily: Font.NunitoRegular,
-        marginVertical: verticalScale(4),
-    },
 });
 
 export default styles;

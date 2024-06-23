@@ -7,6 +7,7 @@ import ButtonBasic from '../../components/ButtonBasic';
 import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
 import HeaderBasic from '../../components/HeaderBasic';
+import { SCREEN_NAME } from '../../utils/Enum';
 
 class ResetPassword extends Component {
   formValues = {
@@ -32,7 +33,7 @@ class ResetPassword extends Component {
 
   _doSubmit() {
     console.log('Login');
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate(SCREEN_NAME.LOGIN);
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {

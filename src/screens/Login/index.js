@@ -10,15 +10,56 @@ import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
 
 class Login extends Component {
+  formValues = {
+    email: {
+      value: '',
+      validationStatus: false,
+      errorMessage: '',
+    },
+    password: {
+      value: '',
+      validationStatus: false,
+      errorMessage: '',
+    },
+  }
   constructor(props) {
     super(props);
-  }
+    this.state = {
+      isButtonActive: false,
+    }
 
-  _doLogin(){
+    this._inputValidation = this._inputValidation.bind(this);
+  }  
+
+  _doLogin() {
     console.log('Login');
   }
 
+  _inputValidation(id, value, validationStatus, errorMessage) {
+    console.log(this.formValues, 'this.formValues');
+    this.formValues[id] = {
+      value,
+      validationStatus,
+      errorMessage
+    }
+
+    if (validationStatus) {
+      let allValid = true;
+      for (let index in this.formValues) {
+        if (!this.formValues[index].validationStatus) {
+          allValid = false;
+          break;
+        }
+      }
+
+      this.setState({isButtonActive: allValid})
+    }else{
+      this.setState({isButtonActive: false})
+    }
+  }
+
   render() {
+    // console.log(this.formValues, 'this.formValues');
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.margin}>
@@ -27,24 +68,28 @@ class Login extends Component {
             <Text style={styles.headerText}>Masuk dan mulai belajar</Text>
             <View style={{ marginTop: verticalScale(40) }}>
 
-              <InputTextBasic mandatory inputTitle={'Email'} inputType={'email'} placeholder={'masukkan email'} />
-              <InputTextBasic mandatory inputTitle={'Kata Sandi'} inputType={'password'} placeholder={'masukkan kata sandi'}/>
-              
-              <Text onPress={()=> this.props.navigation.navigate('ForgotPassword')} style={styles.underlineText}>Lupa Kata Sandi</Text>
+              <InputTextBasic id={'email'} mandatory inputTitle={'Email'} inputType={'email'} placeholder={'masukkan email'}
+                onChangeText={this._inputValidation}
+              />
+              <InputTextBasic id={'password'} mandatory inputTitle={'Kata Sandi'} inputType={'password'} placeholder={'masukkan kata sandi'}
+                onChangeText={this._inputValidation}
+              />
+
+              <Text onPress={() => this.props.navigation.navigate('ForgotPassword')} style={styles.underlineText}>Lupa Kata Sandi</Text>
 
               <View style={{ marginTop: verticalScale(40) }} />
-              <ButtonBasic 
-                textColor={COLOR.WHITE} 
-                background={COLOR.BLUE_PRIMER} 
-                buttonText={'Masuk'} 
-                onPress={()=> this._doLogin()}
-                />
-              <ButtonBasic 
-                textColor={COLOR.BLUISH_GREY} 
-                background={COLOR.TRANSPARENT} 
-                buttonText={'Buat akun baru'} 
-                onPress={()=> this.props.navigation.navigate('Register')}
-                />
+              <ButtonBasic
+                textColor={COLOR.WHITE}
+                background={this.state.isButtonActive ? COLOR.BLUE_PRIMER : COLOR.BLUISH_GREY}
+                buttonText={'Masuk'}
+                onPress={() => this.state.isButtonActive && this._doLogin()}
+              />
+              <ButtonBasic
+                textColor={COLOR.BLUISH_GREY}
+                background={COLOR.TRANSPARENT}
+                buttonText={'Buat akun baru'}
+                onPress={() => this.props.navigation.navigate('Register')}
+              />
             </View>
           </View>
         </ScrollView>

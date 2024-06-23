@@ -18,15 +18,12 @@ class InputTextBasic extends Component {
 
   _handleOnChange(value) {
     this.value = value
-
-    if (this.props.onChangeText) {
-      this.props.onChangeText(value);
-    }
   }
 
   _onFocusAndBlur(isFocus) {
     this.setState({ isFocus });
     this._handleValidation();
+    
   }
 
   _handleMandatory() {
@@ -162,6 +159,10 @@ class InputTextBasic extends Component {
     }
     if (this.validationStatus) {
       this.errorMessage = '';
+    }
+    
+    if (this.props.onChangeText) {
+      this.props.onChangeText(this.props.id, this.value, this.validationStatus, this.errorMessage);
     }
   }
 

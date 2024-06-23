@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 export default function AppNav() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={SCREEN_NAME.PROFILE} screenOptions={{
+            <Stack.Navigator initialRouteName={SCREEN_NAME.LOGIN} screenOptions={{
                 orientation:'portrait',
                 headerShown:false,
                 contentStyle:{

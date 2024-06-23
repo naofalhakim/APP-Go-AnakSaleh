@@ -8,9 +8,14 @@ import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
 import HeaderBasic from '../../components/HeaderBasic';
 
-class ForgotPassword extends Component {
+class ResetPassword extends Component {
   formValues = {
-    email: {
+    password: {
+      value: '',
+      validationStatus: false,
+      errorMessage: '',
+    },
+    confirm_password: {
       value: '',
       validationStatus: false,
       errorMessage: '',
@@ -23,11 +28,11 @@ class ForgotPassword extends Component {
     }
 
     this._inputValidation = this._inputValidation.bind(this);
-  }  
+  }
 
   _doSubmit() {
     console.log('Login');
-    this.props.navigation.navigate('ResetPassword')
+    this.props.navigation.navigate('Login');
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {
@@ -46,37 +51,39 @@ class ForgotPassword extends Component {
         }
       }
 
-      this.setState({isButtonActive: allValid})
-    }else{
-      this.setState({isButtonActive: false})
+      this.setState({ isButtonActive: allValid })
+    } else {
+      this.setState({ isButtonActive: false })
     }
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <HeaderBasic navigation={this.props.navigation} title={'Reset Kata Sandi'} />
+        <HeaderBasic navigation={this.props.navigation} title={'Perbarui Kata Sandi'} />
         <ScrollView style={styles.margin}>
-            <View>
-              <InputTextBasic id={'email'} mandatory inputTitle={'Email'} inputType={'email'} placeholder={'masukkan email'}
-                onChangeText={this._inputValidation}
-              />
+          <View>
+            <InputTextBasic id={'password'} mandatory inputTitle={'Kata Sandi'} inputType={'password'} placeholder={'masukkan kata sandi baru'}
+              onChangeText={this._inputValidation}
+            />
+            <InputTextBasic id={'confirm_password'} mandatory inputTitle={'Konfirmasi Kata Sandi'} inputType={'password'} placeholder={'masukkan kata sandi baru'}
+              onChangeText={this._inputValidation}
+              password={this.formValues.password.value}
+            />
 
-              <Text style={styles.underlineText}>*Link untuk reset kata sandi akan dikirimkan melalui email terdaftar yang kamu inputkan</Text>
+            <View style={{ marginTop: verticalScale(40) }} />
+            <ButtonBasic
+              textColor={COLOR.WHITE}
+              background={this.state.isButtonActive ? COLOR.BLUE_PRIMER : COLOR.BLUISH_GREY}
+              buttonText={'Perbarui'}
+              onPress={() => this.state.isButtonActive && this._doSubmit()}
+            />
 
-              <View style={{ marginTop: verticalScale(40) }} />
-              <ButtonBasic
-                textColor={COLOR.WHITE}
-                background={this.state.isButtonActive ? COLOR.BLUE_PRIMER : COLOR.BLUISH_GREY}
-                buttonText={'Masuk'}
-                onPress={() => this.state.isButtonActive && this._doSubmit()}
-              />
-            
-            </View>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
 
-export default ForgotPassword;
+export default ResetPassword;

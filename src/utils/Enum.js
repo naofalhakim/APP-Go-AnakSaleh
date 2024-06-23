@@ -1,7 +1,8 @@
 const SCREEN_NAME = {
     LOGIN: 'Login',
-    FORGOT_PASSWORD: 'ForgotPassword',
     REGISTER: 'Register',
+    FORGOT_PASSWORD: 'ForgotPassword',
+    RESET_PASSWORD: 'ResetPassword',
 }
 
 export {SCREEN_NAME}

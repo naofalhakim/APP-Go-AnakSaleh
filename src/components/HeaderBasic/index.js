@@ -15,7 +15,7 @@ class HeaderBasic extends Component {
     const {title, navigation} = this.props;
     return (
       <View style={styles.container}>
-          <TouchableOpacity onPress={()=> this.props.navigation.goBack()}>
+          <TouchableOpacity onPress={()=> navigation.goBack()}>
             <Image source={ICON.ic_back} style={styles.backButton} />
           </TouchableOpacity>
           <View style={styles.textContainer}>

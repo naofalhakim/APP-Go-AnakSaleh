@@ -33,7 +33,7 @@ class Login extends Component {
 
   _doLogin() {
     console.log('Login');
-    this.props.navigation.navigate(SCREEN_NAME.PROFILE);
+    this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU);
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {

@@ -5,9 +5,14 @@ import Font from "../../assets/fonts";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
-    margin: { margin: 24, },
+    margin: { 
+        marginTop: verticalScale(2), 
+        marginBottom: verticalScale(-30), 
+        marginHorizontal: horizontalScale(24), 
+        paddingVertical: verticalScale(20) 
+    },
     photoContainer: {
         width: horizontalScale(130),
         height: verticalScale(130),

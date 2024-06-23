@@ -7,15 +7,15 @@ import Login from './screens/Login';
 import ForgotPassword from './screens/ForgotPassword';
 import Register from './screens/Register';
 import ResetPassword from './screens/ResetPassword';
-import Profile from './screens/Profile';
 import COLOR from './utils/ColorSystem';
+import MainMenu from './screens/MainMenu';
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNav() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={SCREEN_NAME.LOGIN} screenOptions={{
+            <Stack.Navigator initialRouteName={SCREEN_NAME.MAIN_MENU} screenOptions={{
                 orientation:'portrait',
                 headerShown:false,
                 contentStyle:{
@@ -26,7 +26,7 @@ export default function AppNav() {
                 <Stack.Screen name={SCREEN_NAME.FORGOT_PASSWORD} component={ForgotPassword}/>
                 <Stack.Screen name={SCREEN_NAME.REGISTER} component={Register}/>
                 <Stack.Screen name={SCREEN_NAME.RESET_PASSWORD} component={ResetPassword}/>
-                <Stack.Screen name={SCREEN_NAME.PROFILE} component={Profile}/>
+                <Stack.Screen name={SCREEN_NAME.MAIN_MENU} component={MainMenu}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

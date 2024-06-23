@@ -18,10 +18,8 @@ class ButtonBasic extends Component {
   }
 
   _isActive(){
-    if(this.props.onPress){
-      return this.props.onPress() ? 0 : 1;
-    }
-    return 1
+    const {isDisable = false} = this.props;
+    return isDisable;
   }
 
   render() {

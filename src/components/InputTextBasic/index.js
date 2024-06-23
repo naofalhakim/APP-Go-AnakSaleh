@@ -23,7 +23,7 @@ class InputTextBasic extends Component {
   _onFocusAndBlur(isFocus) {
     this.setState({ isFocus });
     this._handleValidation();
-    
+
   }
 
   _handleMandatory() {
@@ -62,47 +62,34 @@ class InputTextBasic extends Component {
       this.validationStatus = true;
     } else {
       this.validationStatus = false;
-      this.errorMessage = this.props.errorMessageWhenInvalidFormat
-        ? this.props.errorMessageWhenInvalidFormat
-        : 'Please enter a valid name';
+      this.errorMessage = 'masukkan nama yang benar';
     }
   }
 
   _handlePassword() {
     this.eightMinCharReq = true;
-    // this.oneUppercaseCharReq = true;
-    // this.oneNumberCharReq = true;
 
     if (this.value.length < 8) this.eightMinCharReq = false;
-    // if (!/\d/.test(this.value)) this.oneNumberCharReq = false;
-    // if (!/[A-Z]/.test(this.value)) this.oneUppercaseCharReq = false;
 
     if (
-      this.eightMinCharReq 
-      // && this.oneNumberCharReq &&
-      // this.oneUppercaseCharReq
+      this.eightMinCharReq
     )
       this.validationStatus = true;
     else {
       this.errorMessage = 'kata sandi harus lebih dari 8 digit'
       this.validationStatus = false
     };
+  }
+  _handleConfirmPassword() {
+    const {password} = this.props;
+    console.log(password,'password');
 
-    // const invalidCheckIcon = this.firstPasswordCheck
-    //   ? this.checkGray
-    //   : this.checkRed;
-
-    // this.setState({
-    //   passwordReqEightChar: !this.eightMinCharReq
-    //     ? invalidCheckIcon
-    //     : this.checkGreen,
-    //   passwordReqOneNumber: !this.oneNumberCharReq
-    //     ? invalidCheckIcon
-    //     : this.checkGreen,
-    //   passwordReqOneUppercase: !this.oneUppercaseCharReq
-    //     ? invalidCheckIcon
-    //     : this.checkGreen,
-    // });
+    if (this.value === password)
+      this.validationStatus = true;
+    else {
+      this.errorMessage = 'kata sandi harus sama'
+      this.validationStatus = false
+    };
   }
 
   _handlePhone() {
@@ -112,29 +99,25 @@ class InputTextBasic extends Component {
       this.validationStatus = true;
     } else {
       this.validationStatus = false;
-      this.props.errorMessageWhenInvalidFormat
-        ? this.props.errorMessageWhenInvalidFormat
-        : 'Invalid';
+      this.errorMessage = 'masukkan no telphone yang benar'
     }
   }
 
   _handleValidation() {
     this._handleMandatory();
     if (this.validationStatus) {
-      if (this.props.inputType === 'email') {
+      if (this.props.id === 'email') {
         this._handleEmail();
-      } else if (this.props.inputType === 'password') {
+      } else if (this.props.id === 'password') {
         this._handlePassword();
+      } else if (this.props.id === 'confirm_password') {
+        this._handleConfirmPassword();
+      } else if (this.props.id == 'name') {
+        this._handleName();
+      } else if (this.props.id == 'phone') {
+        this._handlePhone();
       }
-      //   if (this.props.type == 'name') {
-      //     this._handleName();
-      //   } else if (this.props.type == 'email') {
-      //     this._handleEmail();
-      //   } else if (this.props.type == 'phone') {
-      //     if (this.props.mandatory || this.value.length > 0) {
-      //       this._handlePhone();
-      //     }
-      //   } else if (this.props.type == 'prefix_phone') {
+      // else if (this.props.type == 'prefix_phone') {
       //     if (this.props.mandatory || this.value.length > 0) {
       //       this._handlePrefixPhone();
       //     }
@@ -160,9 +143,22 @@ class InputTextBasic extends Component {
     if (this.validationStatus) {
       this.errorMessage = '';
     }
-    
+
     if (this.props.onChangeText) {
       this.props.onChangeText(this.props.id, this.value, this.validationStatus, this.errorMessage);
+    }
+  }
+
+  _getKeyboardType(input) {
+    switch (input) {
+      case 'email':
+        return 'email';
+      case 'age':
+        return 'numeric'
+      case 'telp':
+        return 'tel'
+      default:
+        return 'text'
     }
   }
 
@@ -170,16 +166,15 @@ class InputTextBasic extends Component {
     const { inputTitle, inputType, background, textColor, placeholder } = this.props;
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={styles.inputTitle}>{inputTitle}</Text>
-          <Text style={styles.errorMessage}>{this.errorMessage}</Text>
+          {this.errorMessage && <Text style={styles.errorMessage}>{this.errorMessage}</Text>}
         </View>
         <TextInput
           onFocus={() => this._onFocusAndBlur(true)}
           onBlur={() => this._onFocusAndBlur(false)}
           style={styles.inputTextContainer(this.state.isFocus, textColor)}
-          keyboardType={inputType}
-          inputMode={inputType}
+          inputMode={this._getKeyboardType(inputType)}
           autoCapitalize='none'
           underlineColorAndroid={'transparent'}
           autoCorrect={false}
@@ -196,12 +191,21 @@ class InputTextBasic extends Component {
 
 const styles = StyleSheet.create({
   container: { flex: 1, marginVertical: verticalScale(8) },
-  inputTitle: { marginBottom: 8, fontSize: moderateScale(16), color: COLOR.BLUISH_GREY, fontFamily: Font.NunitoRegular },
+  inputTitle: {
+    flex: 1,
+    marginBottom: 8,
+    fontSize: moderateScale(16),
+    color: COLOR.BLUISH_GREY,
+    fontFamily: Font.NunitoRegular
+  },
   errorMessage: {
     marginBottom: 8,
     fontSize: moderateScale(12),
     color: COLOR.WATERMELON,
-    fontFamily: Font.NunitoMedium
+    fontFamily: Font.NunitoMedium,
+    flex: 1,
+    flexWrap: 'wrap',
+    textAlign: 'right'
   },
   inputTextContainer:
     (isFocus, textColor) => ({

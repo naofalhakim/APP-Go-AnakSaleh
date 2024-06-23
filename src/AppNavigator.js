@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SCREEN_NAME } from './utils/Enum';
 import Login from './screens/Login';
 import ForgotPassword from './screens/ForgotPassword';
+import Register from './screens/Register';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function AppNav() {
             }}>
                 <Stack.Screen name={SCREEN_NAME.LOGIN} component={Login}/>
                 <Stack.Screen name={SCREEN_NAME.FORGOT_PASSWORD} component={ForgotPassword}/>
+                <Stack.Screen name={SCREEN_NAME.REGISTER} component={Register}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

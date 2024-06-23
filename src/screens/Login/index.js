@@ -78,9 +78,10 @@ class Login extends Component {
               <View style={{ marginTop: verticalScale(40) }} />
               <ButtonBasic
                 textColor={COLOR.WHITE}
+                isDisable={!this.state.isButtonActive}
                 background={this.state.isButtonActive ? COLOR.BLUE_PRIMER : COLOR.BLUISH_GREY}
                 buttonText={'Masuk'}
-                onPress={() => this.state.isButtonActive && this._doLogin()}
+                onPress={() => this._doLogin()}
               />
               <ButtonBasic
                 textColor={COLOR.BLUISH_GREY}

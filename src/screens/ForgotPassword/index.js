@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
-import ICON from '../../assets/icons';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLOR from '../../utils/ColorSystem';
 import styles from './styles';
 import ButtonBasic from '../../components/ButtonBasic';
 import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
+import HeaderBasic from '../../components/HeaderBasic';
 
-class Login extends Component {
+class ForgotPassword extends Component {
   formValues = {
     email: {
-      value: '',
-      validationStatus: false,
-      errorMessage: '',
-    },
-    password: {
       value: '',
       validationStatus: false,
       errorMessage: '',
@@ -30,12 +25,11 @@ class Login extends Component {
     this._inputValidation = this._inputValidation.bind(this);
   }  
 
-  _doLogin() {
+  _doSubmit() {
     console.log('Login');
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {
-    console.log(this.formValues, 'this.formValues');
     this.formValues[id] = {
       value,
       validationStatus,
@@ -60,40 +54,28 @@ class Login extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <HeaderBasic navigation={this.props.navigation} title={'Reset Kata Sandi'} />
         <ScrollView style={styles.margin}>
-          <Image source={ICON.ic_header_app} style={styles.iconHeader} />
-          <View style={{ marginHorizontal: verticalScale(8), }}>
-            <Text style={styles.headerText}>Masuk dan mulai belajar</Text>
-            <View style={{ marginTop: verticalScale(40) }}>
-
+            <View>
               <InputTextBasic id={'email'} mandatory inputTitle={'Email'} inputType={'email'} placeholder={'masukkan email'}
                 onChangeText={this._inputValidation}
               />
-              <InputTextBasic id={'password'} mandatory inputTitle={'Kata Sandi'} inputType={'password'} placeholder={'masukkan kata sandi'}
-                onChangeText={this._inputValidation}
-              />
 
-              <Text onPress={() => this.props.navigation.navigate('ForgotPassword')} style={styles.underlineText}>Lupa Kata Sandi</Text>
+              <Text style={styles.underlineText}>*Link untuk reset kata sandi akan dikirimkan melalui email terdaftar yang kamu inputkan</Text>
 
               <View style={{ marginTop: verticalScale(40) }} />
               <ButtonBasic
                 textColor={COLOR.WHITE}
                 background={this.state.isButtonActive ? COLOR.BLUE_PRIMER : COLOR.BLUISH_GREY}
                 buttonText={'Masuk'}
-                onPress={() => this.state.isButtonActive && this._doLogin()}
+                onPress={() => this.state.isButtonActive && this._doSubmit()}
               />
-              <ButtonBasic
-                textColor={COLOR.BLUISH_GREY}
-                background={COLOR.TRANSPARENT}
-                buttonText={'Buat akun baru'}
-                onPress={() => this.props.navigation.navigate('Register')}
-              />
+            
             </View>
-          </View>
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
 
-export default Login;
+export default ForgotPassword;

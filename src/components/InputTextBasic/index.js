@@ -82,7 +82,6 @@ class InputTextBasic extends Component {
   }
   _handleConfirmPassword() {
     const {password} = this.props;
-    console.log(password,'password');
 
     if (this.value === password)
       this.validationStatus = true;

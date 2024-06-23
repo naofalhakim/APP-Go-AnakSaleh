@@ -61,7 +61,6 @@ class Register extends Component {
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {
-    console.log(this.formValues, 'this.formValues');
     this.formValues[id] = {
       value,
       validationStatus,

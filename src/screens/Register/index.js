@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
-import ICON from '../../assets/icons';
+import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLOR from '../../utils/ColorSystem';
 import styles from './styles';
@@ -8,6 +7,10 @@ import ButtonBasic from '../../components/ButtonBasic';
 import { horizontalScale, verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
 import HeaderBasic from '../../components/HeaderBasic';
+import axios from 'axios';
+import { API_URL } from '../../utils/Urlconfig';
+import LoaderBasic from '../../components/LoaderBasic';
+import { SCREEN_NAME } from '../../utils/Enum';
 
 class Register extends Component {
   formValues = {
@@ -57,7 +60,38 @@ class Register extends Component {
   }
 
   _doRegister() {
-    console.log('Register');
+    this.setState({
+      isLoading: true
+    })
+    let data = {
+      email: this.formValues.email,
+      password: this.formValues.password,
+      name: this.formValues.name,
+      gender: 0,
+      age: this.formValues.age,
+      phone: this.formValues.telp
+    };
+
+    let config = {
+      method: 'post',
+      url: API_URL.REGISTER,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        this.setState({
+          isLoading: false
+        }, ()=> this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {
@@ -87,6 +121,7 @@ class Register extends Component {
       <SafeAreaView style={styles.container}>
         <HeaderBasic navigation={this.props.navigation} title={'Daftar Akun'} />
         <ScrollView style={styles.margin}>
+          <LoaderBasic isShow={this.state.isLoading} />
           <View>
             <InputTextBasic id={'email'} mandatory inputTitle={'Email'} inputType={'email'} placeholder={'masukkan email'}
               onChangeText={this._inputValidation}
@@ -94,11 +129,11 @@ class Register extends Component {
             <InputTextBasic id={'name'} mandatory inputTitle={'Nama'} inputType={'name'} placeholder={'masukkan nama'}
               onChangeText={this._inputValidation}
             />
-            <View style={{flex:1, flexDirection:'row', flexWrap:'wrap' }}>
-              <View style={{minWidth:'20%', maxWidth:'30%', marginRight:horizontalScale(12)}}>
-              <InputTextBasic id={'age'} mandatory inputTitle={'Umur'} inputType={'age'} placeholder={'masukkan umur'}
-                onChangeText={this._inputValidation}
-              />
+            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+              <View style={{ minWidth: '20%', maxWidth: '30%', marginRight: horizontalScale(12) }}>
+                <InputTextBasic id={'age'} mandatory inputTitle={'Umur'} inputType={'age'} placeholder={'masukkan umur'}
+                  onChangeText={this._inputValidation}
+                />
               </View>
               <InputTextBasic id={'gender'} mandatory inputTitle={'Jenis Kelamin'} inputType={'gender'} placeholder={'jenis kelamin'}
                 onChangeText={this._inputValidation}
@@ -123,6 +158,7 @@ class Register extends Component {
               buttonText={'Daftar Akun'}
               onPress={() => this.state.isButtonActive && this._doRegister()}
             />
+
           </View>
         </ScrollView>
       </SafeAreaView>

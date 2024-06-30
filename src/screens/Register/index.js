@@ -68,7 +68,7 @@ class Register extends Component {
       email: this.formValues.email,
       password: this.formValues.password,
       name: this.formValues.name,
-      gender: 0,
+      gender: this.formValues.gender,
       age: this.formValues.age,
       phone: this.formValues.telp
     };

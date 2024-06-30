@@ -65,12 +65,12 @@ class Register extends Component {
       isLoading: true
     })
     let data = {
-      email: this.formValues.email,
-      password: this.formValues.password,
-      name: this.formValues.name,
-      gender: this.formValues.gender,
-      age: this.formValues.age,
-      phone: this.formValues.telp
+      email: this.formValues.email.value,
+      password: this.formValues.password.value,
+      name: this.formValues.name.value,
+      gender: this.formValues.gender.value,
+      age: this.formValues.age.value,
+      phone: this.formValues.telp.value
     };
 
     let config = {
@@ -87,10 +87,13 @@ class Register extends Component {
         console.log(JSON.stringify(response.data));
         this.setState({
           isLoading: false
-        }, ()=> this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU))
+        }, () => this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU))
       })
       .catch((error) => {
         console.log(error);
+        this.setState({
+          isLoading: false
+        })
       });
 
   }
@@ -130,15 +133,15 @@ class Register extends Component {
             <InputTextBasic id={'name'} mandatory inputTitle={'Nama'} inputType={'name'} placeholder={'masukkan nama'}
               onChangeText={this._inputValidation}
             />
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', zIndex:2 }}>
+            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', zIndex: 2 }}>
               <View style={{ minWidth: '20%', maxWidth: '30%', marginRight: horizontalScale(12) }}>
                 <InputTextBasic id={'age'} mandatory inputTitle={'Umur'} inputType={'age'} placeholder={'masukkan umur'}
                   onChangeText={this._inputValidation}
                 />
               </View>
-              <InputPickerBasic id={'gender'} mandatory inputTitle={'Jenis Kelamin'} placeholder={'Jenis kelamin'} 
-                  onChangeValue={this._inputValidation}
-                  />
+              <InputPickerBasic id={'gender'} mandatory inputTitle={'Jenis Kelamin'} placeholder={'Jenis kelamin'}
+                onChangeValue={this._inputValidation}
+              />
             </View>
 
             <InputTextBasic id={'telp'} mandatory inputTitle={'No. Telpon'} inputType={'telp'} placeholder={'masukkan nomor telphon'}

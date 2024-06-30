@@ -87,7 +87,7 @@ class Register extends Component {
         console.log(JSON.stringify(response.data));
         this.setState({
           isLoading: false
-        }, () => this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU))
+        }, () => this.props.navigation.navigate(SCREEN_NAME.LOGIN))
       })
       .catch((error) => {
         console.log(error);

@@ -7,4 +7,8 @@ const SCREEN_NAME = {
     MAIN_MENU: 'MainMenu',
 }
 
-export {SCREEN_NAME}
+const STORAGE_KEY = {
+    USER_LOGIN: 'user_login',
+}
+
+export {SCREEN_NAME, STORAGE_KEY}

@@ -34,5 +34,13 @@ const getDataString = async (key) => {
     }
   }
 
+const removeData = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key)
+    } catch(e) {
+        console.log('error removing data from local:', e)
+    }
+  }
 
-export {storeData, storeDataString, getData, getDataString}
+
+export {storeData, storeDataString, getData, getDataString, removeData}

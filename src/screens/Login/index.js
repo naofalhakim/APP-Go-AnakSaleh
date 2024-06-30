@@ -7,10 +7,11 @@ import styles from './styles';
 import ButtonBasic from '../../components/ButtonBasic';
 import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
-import { SCREEN_NAME } from '../../utils/Enum';
+import { SCREEN_NAME, STORAGE_KEY } from '../../utils/Enum';
 import axios from 'axios';
 import { API_URL } from '../../utils/Urlconfig';
 import LoaderBasic from '../../components/LoaderBasic';
+import { storeData, storeDataString } from '../../services/LocalStorage';
 
 class Login extends Component {
   formValues = {
@@ -77,6 +78,8 @@ class Login extends Component {
         let resp = response.data;
         if(resp.data){
           const dataUser = resp.data;
+          storeData(STORAGE_KEY.USER_LOGIN, dataUser);
+
           this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU)
         }else{
           Alert.alert('Login gagal','Email / kata sandi salah',()=>{
@@ -84,7 +87,6 @@ class Login extends Component {
             this.forceUpdate();
           });
         }
-        console.log(response.data, 'response.data');
       })
       .catch((error) => {
         console.log(error);

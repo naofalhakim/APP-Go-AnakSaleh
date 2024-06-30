@@ -4,33 +4,28 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import COLOR from '../../utils/ColorSystem';
 import styles from './styles';
 import ButtonBasic from '../../components/ButtonBasic';
-import { horizontalScale, verticalScale } from '../../utils/Metric';
-import InputTextBasic from '../../components/InputTextBasic';
+import { verticalScale } from '../../utils/Metric';
 import HeaderBasic from '../../components/HeaderBasic';
-import { SCREEN_NAME } from '../../utils/Enum';
+import { SCREEN_NAME, STORAGE_KEY } from '../../utils/Enum';
 import ICON from '../../assets/icons';
 import PointBar from '../../components/PointBar';
+import { getData, getDataString, removeData } from '../../services/LocalStorage';
 
 class Profile extends Component {
-  formValues = {
-    password: {
-      value: '',
-      validationStatus: false,
-      errorMessage: '',
-    },
-    confirm_password: {
-      value: '',
-      validationStatus: false,
-      errorMessage: '',
-    },
-  }
   constructor(props) {
     super(props);
     this.state = {
-      isButtonActive: false,
     }
+    this.user = null
+  }
 
-    this._inputValidation = this._inputValidation.bind(this);
+  componentDidMount(){
+    this.getUserData();
+  }
+
+  async getUserData(){
+    this.user = await getData(STORAGE_KEY.USER_LOGIN);
+    console.log(this.user.email, 'this.user');
   }
 
   _doSubmit() {
@@ -39,29 +34,8 @@ class Profile extends Component {
   }
 
   _logout() {
+    removeData(STORAGE_KEY.USER_LOGIN);
     this.props.navigation.navigate(SCREEN_NAME.LOGIN);
-  }
-
-  _inputValidation(id, value, validationStatus, errorMessage) {
-    this.formValues[id] = {
-      value,
-      validationStatus,
-      errorMessage
-    }
-
-    if (validationStatus) {
-      let allValid = true;
-      for (let index in this.formValues) {
-        if (!this.formValues[index].validationStatus) {
-          allValid = false;
-          break;
-        }
-      }
-
-      this.setState({ isButtonActive: allValid })
-    } else {
-      this.setState({ isButtonActive: false })
-    }
   }
 
   render() {
@@ -108,7 +82,7 @@ class Profile extends Component {
             textColor={COLOR.WHITE}
             background={COLOR.BLUE_PRIMER}
             buttonText={'Ubah Kata Sandi'}
-            onPress={() => this.state.isButtonActive && this._doSubmit()}
+            onPress={() => this._doSubmit()}
           />
 
           <View style={{ marginTop: verticalScale(12) }} />

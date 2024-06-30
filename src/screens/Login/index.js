@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 import ICON from '../../assets/icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLOR from '../../utils/ColorSystem';
@@ -8,6 +8,9 @@ import ButtonBasic from '../../components/ButtonBasic';
 import { verticalScale } from '../../utils/Metric';
 import InputTextBasic from '../../components/InputTextBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
+import axios from 'axios';
+import { API_URL } from '../../utils/Urlconfig';
+import LoaderBasic from '../../components/LoaderBasic';
 
 class Login extends Component {
   formValues = {
@@ -26,18 +29,73 @@ class Login extends Component {
     super(props);
     this.state = {
       isButtonActive: false,
+      isLoading: false,
     }
 
     this._inputValidation = this._inputValidation.bind(this);
-  }  
+    this._resetForm = this._resetForm.bind(this);
+  }
+
+  _resetForm(){
+    this.formValues = {
+      email: {
+        value: '',
+        validationStatus: false,
+        errorMessage: '',
+      },
+      password: {
+        value: '',
+        validationStatus: false,
+        errorMessage: '',
+      },
+    }
+  }
 
   _doLogin() {
-    console.log('Login');
-    this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU);
+    this.setState({
+      isLoading: true
+    })
+    let data = {
+      email: this.formValues.email.value,
+      password: this.formValues.password.value,
+    };
+
+    let config = {
+      method: 'post',
+      url: API_URL.LOGIN,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios.request(config)
+      .then((response) => {
+        this.setState({
+          isLoading: false
+        })
+        let resp = response.data;
+        if(resp.data){
+          const dataUser = resp.data;
+          this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU)
+        }else{
+          Alert.alert('Login gagal','Email / kata sandi salah',()=>{
+            this._resetForm();
+            this.forceUpdate();
+          });
+        }
+        console.log(response.data, 'response.data');
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({
+          isLoading: false
+        })
+      });
   }
 
   _inputValidation(id, value, validationStatus, errorMessage) {
-  
+
     this.formValues[id] = {
       value,
       validationStatus,
@@ -53,9 +111,9 @@ class Login extends Component {
         }
       }
 
-      this.setState({isButtonActive: allValid})
-    }else{
-      this.setState({isButtonActive: false})
+      this.setState({ isButtonActive: allValid })
+    } else {
+      this.setState({ isButtonActive: false })
     }
   }
 
@@ -63,6 +121,7 @@ class Login extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.margin}>
+          <LoaderBasic isShow={this.state.isLoading} />
           <Image source={ICON.ic_header_app} style={styles.iconHeader} />
           <View style={{ marginHorizontal: verticalScale(8), }}>
             <Text style={styles.headerText}>Masuk dan mulai belajar</Text>

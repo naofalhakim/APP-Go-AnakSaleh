@@ -11,6 +11,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/Urlconfig';
 import LoaderBasic from '../../components/LoaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
+import InputPickerBasic from '../../components/InputPickerBasic';
 
 class Register extends Component {
   formValues = {
@@ -129,15 +130,15 @@ class Register extends Component {
             <InputTextBasic id={'name'} mandatory inputTitle={'Nama'} inputType={'name'} placeholder={'masukkan nama'}
               onChangeText={this._inputValidation}
             />
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', zIndex:2 }}>
               <View style={{ minWidth: '20%', maxWidth: '30%', marginRight: horizontalScale(12) }}>
                 <InputTextBasic id={'age'} mandatory inputTitle={'Umur'} inputType={'age'} placeholder={'masukkan umur'}
                   onChangeText={this._inputValidation}
                 />
               </View>
-              <InputTextBasic id={'gender'} mandatory inputTitle={'Jenis Kelamin'} inputType={'gender'} placeholder={'jenis kelamin'}
-                onChangeText={this._inputValidation}
-              />
+              <InputPickerBasic id={'gender'} mandatory inputTitle={'Jenis Kelamin'} placeholder={'Jenis kelamin'} 
+                  onChangeValue={this._inputValidation}
+                  />
             </View>
 
             <InputTextBasic id={'telp'} mandatory inputTitle={'No. Telpon'} inputType={'telp'} placeholder={'masukkan nomor telphon'}

@@ -11,7 +11,7 @@ import { SCREEN_NAME, STORAGE_KEY } from '../../utils/Enum';
 import axios from 'axios';
 import { API_URL } from '../../utils/Urlconfig';
 import LoaderBasic from '../../components/LoaderBasic';
-import { storeData, storeDataString } from '../../services/LocalStorage';
+import { getData, storeData, } from '../../services/LocalStorage';
 
 class Login extends Component {
   formValues = {
@@ -35,9 +35,23 @@ class Login extends Component {
 
     this._inputValidation = this._inputValidation.bind(this);
     this._resetForm = this._resetForm.bind(this);
+    this._checkUserLogin = this._checkUserLogin.bind(this);
   }
 
-  _resetForm(){
+  componentDidMount(){
+    this._checkUserLogin();
+  }
+
+  _checkUserLogin() {
+    getData(STORAGE_KEY.USER_LOGIN).then(data=>{
+      if(data){
+        this.props.navigation.replace(SCREEN_NAME.MAIN_MENU)
+      }
+    });
+    
+  }
+
+  _resetForm() {
     this.formValues = {
       email: {
         value: '',
@@ -76,13 +90,13 @@ class Login extends Component {
           isLoading: false
         })
         let resp = response.data;
-        if(resp.data){
+        if (resp.data) {
           const dataUser = resp.data;
           storeData(STORAGE_KEY.USER_LOGIN, dataUser);
 
           this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU)
-        }else{
-          Alert.alert('Login gagal','Email / kata sandi salah',()=>{
+        } else {
+          Alert.alert('Login gagal', 'Email / kata sandi salah', () => {
             this._resetForm();
             this.forceUpdate();
           });

@@ -9,14 +9,15 @@ import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME, STORAGE_KEY } from '../../utils/Enum';
 import ICON from '../../assets/icons';
 import PointBar from '../../components/PointBar';
-import { getData, getDataString, removeData } from '../../services/LocalStorage';
+import { getData, removeData } from '../../services/LocalStorage';
+import { getGenderText } from '../../utils/utils';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user:{},
     }
-    this.user = null
   }
 
   componentDidMount(){
@@ -24,8 +25,8 @@ class Profile extends Component {
   }
 
   async getUserData(){
-    this.user = await getData(STORAGE_KEY.USER_LOGIN);
-    console.log(this.user.email, 'this.user');
+    let user = await getData(STORAGE_KEY.USER_LOGIN);
+    this.setState({user})
   }
 
   _doSubmit() {
@@ -39,6 +40,7 @@ class Profile extends Component {
   }
 
   render() {
+    const {age, name, email, gender, phone, point} = this.state.user
     return (
       <SafeAreaView style={styles.container}>
         <HeaderBasic navigation={this.props.navigation} title={'Profil'} hideBackButton />
@@ -47,13 +49,13 @@ class Profile extends Component {
           <View style={styles.photoContainer}>
             <Image source={ICON.ic_profile} />
           </View>
-          <Text style={styles.nameText}>Fulan</Text>
-          <Text style={styles.emailText}>fulan@gmail.com</Text>
+          <Text style={styles.nameText}>{name}</Text>
+          <Text style={styles.emailText}>{email}</Text>
 
           <View style={styles.pointSectionContainer}>
             <View style={styles.pointSection}>
               <Text style={styles.captionPointText}>Point yang sudah dikumpulkan :</Text>
-              <PointBar point={3213} />
+              <PointBar point={point} />
             </View>
             <Text style={styles.textLinkReward}>Lihat reward yang bisa kamu dapatkan</Text>
           </View>
@@ -65,15 +67,15 @@ class Profile extends Component {
             <View style={{ marginTop: verticalScale(12) }} />
             <View style={styles.dataSection}>
               <Text style={styles.textLabel}>Umur</Text>
-              <Text style={styles.valueLabel}>10 Tahun</Text>
+              <Text style={styles.valueLabel}>{age +' Tahun'}</Text>
             </View>
             <View style={styles.dataSection}>
               <Text style={styles.textLabel}>Jenis Kelamin</Text>
-              <Text style={styles.valueLabel}>Laki - laki</Text>
+              <Text style={styles.valueLabel}>{getGenderText(gender)}</Text>
             </View>
             <View style={styles.dataSection}>
               <Text style={styles.textLabel}>No. telp</Text>
-              <Text style={styles.valueLabel}>0888-2222-1111</Text>
+              <Text style={styles.valueLabel}>{phone}</Text>
             </View>
           </View>
 

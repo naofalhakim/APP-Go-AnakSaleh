@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //screens
@@ -13,20 +13,25 @@ import MainMenu from './screens/MainMenu';
 const Stack = createNativeStackNavigator();
 
 export default function AppNav() {
+    const navRef = useRef();
+    
+    useEffect(() => {
+    },[])
+    
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navRef}>
             <Stack.Navigator initialRouteName={SCREEN_NAME.LOGIN} screenOptions={{
-                orientation:'portrait',
-                headerShown:false,
-                contentStyle:{
+                orientation: 'portrait',
+                headerShown: false,
+                contentStyle: {
                     backgroundColor: COLOR.WHITE,
                 }
             }}>
-                <Stack.Screen name={SCREEN_NAME.LOGIN} component={Login}/>
-                <Stack.Screen name={SCREEN_NAME.FORGOT_PASSWORD} component={ForgotPassword}/>
-                <Stack.Screen name={SCREEN_NAME.REGISTER} component={Register}/>
-                <Stack.Screen name={SCREEN_NAME.RESET_PASSWORD} component={ResetPassword}/>
-                <Stack.Screen name={SCREEN_NAME.MAIN_MENU} component={MainMenu}/>
+                <Stack.Screen name={SCREEN_NAME.LOGIN} component={Login} />
+                <Stack.Screen name={SCREEN_NAME.FORGOT_PASSWORD} component={ForgotPassword} />
+                <Stack.Screen name={SCREEN_NAME.REGISTER} component={Register} />
+                <Stack.Screen name={SCREEN_NAME.RESET_PASSWORD} component={ResetPassword} />
+                <Stack.Screen name={SCREEN_NAME.MAIN_MENU} component={MainMenu} />
             </Stack.Navigator>
         </NavigationContainer>
     );

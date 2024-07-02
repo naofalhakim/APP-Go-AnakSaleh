@@ -61,7 +61,7 @@ class Profile extends Component {
           </View>
 
           <View style={styles.userSection}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> this.props.navigation.navigate(SCREEN_NAME.UPDATE_PROFILE)}>
               <Image style={styles.iconEdit} source={ICON.ic_edit} />
             </TouchableOpacity>
             <View style={{ marginTop: verticalScale(12) }} />

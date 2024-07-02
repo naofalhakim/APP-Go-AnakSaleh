@@ -9,6 +9,7 @@ import Register from './screens/Register';
 import ResetPassword from './screens/ResetPassword';
 import COLOR from './utils/ColorSystem';
 import MainMenu from './screens/MainMenu';
+import UpdateProfile from './screens/UpdateProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ export default function AppNav() {
                 <Stack.Screen name={SCREEN_NAME.FORGOT_PASSWORD} component={ForgotPassword} />
                 <Stack.Screen name={SCREEN_NAME.REGISTER} component={Register} />
                 <Stack.Screen name={SCREEN_NAME.RESET_PASSWORD} component={ResetPassword} />
+                <Stack.Screen name={SCREEN_NAME.UPDATE_PROFILE} component={UpdateProfile} />
                 <Stack.Screen name={SCREEN_NAME.MAIN_MENU} component={MainMenu} />
             </Stack.Navigator>
         </NavigationContainer>

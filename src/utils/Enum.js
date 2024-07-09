@@ -2,6 +2,8 @@ const SCREEN_NAME = {
     LOGIN: 'Login',
     REGISTER: 'Register',
     PROFILE: 'Profile',
+    GAMES: 'Games',
+    MATERI: 'Materi',
     UPDATE_PROFILE: 'UpdateProfile',
     UPDATE_PASSWORD: 'UpdatePassword',
     FORGOT_PASSWORD: 'ForgotPassword',

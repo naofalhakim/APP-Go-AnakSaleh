@@ -3,6 +3,7 @@ const SCREEN_NAME = {
     REGISTER: 'Register',
     PROFILE: 'Profile',
     UPDATE_PROFILE: 'UpdateProfile',
+    UPDATE_PASSWORD: 'UpdatePassword',
     FORGOT_PASSWORD: 'ForgotPassword',
     RESET_PASSWORD: 'ResetPassword',
     MAIN_MENU: 'MainMenu',

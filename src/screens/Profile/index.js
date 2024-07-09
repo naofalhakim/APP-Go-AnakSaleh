@@ -30,8 +30,7 @@ class Profile extends Component {
   }
 
   _doSubmit() {
-    console.log('Login');
-    this.props.navigation.navigate(SCREEN_NAME.LOGIN);
+    this.props.navigation.navigate(SCREEN_NAME.UPDATE_PASSWORD);
   }
 
   _logout() {

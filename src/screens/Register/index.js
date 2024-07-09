@@ -55,6 +55,7 @@ class Register extends Component {
     super(props);
     this.state = {
       isButtonActive: false,
+      isLoading: false,
     }
 
     this._inputValidation = this._inputValidation.bind(this);

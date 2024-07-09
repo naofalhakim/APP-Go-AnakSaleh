@@ -85,14 +85,15 @@ class Login extends Component {
     };
 
     axios.request(config)
-      .then((response) => {
+      .then(async (response) => {
         this.setState({
           isLoading: false
         })
         let resp = response.data;
         if (resp.data) {
           const dataUser = resp.data;
-          storeData(STORAGE_KEY.USER_LOGIN, dataUser);
+          console.log('dataUser login',dataUser)
+          await storeData(STORAGE_KEY.USER_LOGIN, dataUser);
 
           this.props.navigation.navigate(SCREEN_NAME.MAIN_MENU)
         } else {

@@ -33,8 +33,8 @@ class Profile extends Component {
     this.props.navigation.navigate(SCREEN_NAME.UPDATE_PASSWORD);
   }
 
-  _logout() {
-    removeData(STORAGE_KEY.USER_LOGIN);
+  async _logout() {
+    await removeData(STORAGE_KEY.USER_LOGIN);
     this.props.navigation.navigate(SCREEN_NAME.LOGIN);
   }
 

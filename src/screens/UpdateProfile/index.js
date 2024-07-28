@@ -137,7 +137,7 @@ class UpdateProfile extends Component {
 
   render() {
     const { email } = this.state.user
-    console.log(this.formValues,'this.formValues');
+    // console.log(this.formValues,'this.formValues');
     return (
       <SafeAreaView style={styles.container}>
         <HeaderBasic navigation={this.props.navigation} title={'Ubah Profil'} />

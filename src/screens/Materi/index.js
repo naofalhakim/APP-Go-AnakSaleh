@@ -29,40 +29,22 @@ const Materi = [
   }
 ]
 
-const DOT_SIZE = 40;
-
 const Pagination = ({
-  scrollOffsetAnimatedValue,
-  positionAnimatedValue,
-  data
+  data,
+  activeIndex,
+  actionItem
 }) => {
-  const inputRange = [0, data.length];
-  const translateX = Animated.add(
-    scrollOffsetAnimatedValue,
-    positionAnimatedValue
-  ).interpolate({
-    inputRange,
-    outputRange: [0, data.length * DOT_SIZE],
-  });
-
   return (
-    <View style={[styles.pagination]}>
-      <Animated.View
-        style={[
-          styles.paginationIndicator,
-          {
-            position: 'absolute',
-            transform: [{ translateX: translateX }],
-          },
-        ]}
-      />
-      {data.map((item) => {
+    <View style={styles.pagination}>
+      {data.map((item, index) => {
         return (
-          <View key={item.key} style={styles.paginationDotContainer}>
+          <TouchableOpacity onPress={() => {
+            actionItem(index)
+          }} key={index} style={styles.paginationDotContainer}>
             <View
-              style={[styles.paginationDot, { backgroundColor: item.color }]}
+              style={[styles.paginationDot(activeIndex === index)]}
             />
-          </View>
+          </TouchableOpacity>
         );
       })}
     </View>
@@ -77,10 +59,11 @@ class MateriScreen extends Component {
     this._renderContainerMateri = this._renderContainerMateri.bind(this);
     this.getUnitStatus = this.getUnitStatus.bind(this);
 
-    this.scrollOffsetAnimatedValue = null;
-    this.positionAnimatedValue = null;
-    // this.scrollOffsetAnimatedValue = React.useRef(new Animated.Value(0)).current;
-    // this.positionAnimatedValue = React.useRef(new Animated.Value(0)).current;
+    this.state = {
+      position: 0,
+    }
+
+    this.refPagerView = React.createRef();
   }
 
   getUnitStatus(statusCode) {
@@ -102,28 +85,17 @@ class MateriScreen extends Component {
 
   _renderSwipeMenu() {
     return (
-      <PagerView initialPage={0}
+      <PagerView
+        ref={this.refPagerView}
+        initialPage={0}
         pageMargin={horizontalScale(20)}
         style={{
           flex: 1,
         }}
-        // onPageScroll={Animated.event(
-        //   [
-        //     {
-        //       nativeEvent: {
-        //         offset: this.scrollOffsetAnimatedValue,
-        //         position: this.positionAnimatedValue,
-        //       },
-        //     },
-        //   ],
-        //   {
-        //     listener: ({ nativeEvent: { offset, position } }) => {
-        //       console.log(`Position: ${position} Offset: ${offset}`);
-        //     },
-        //     useNativeDriver: true,
-        //   }
-        // )}
-        >
+        onPageSelected={(e) => {
+          this.setState({ position: e.nativeEvent.position })
+        }}
+      >
         {Materi.map(this._renderContainerMateri)}
       </PagerView>
     )
@@ -136,6 +108,8 @@ class MateriScreen extends Component {
         backgroundColor: COLOR.BLUE_EGG_DUCK,
         borderRadius: 10,
         padding: moderateScale(20),
+        margin: moderateScale(6),
+        marginBottom: moderateScale(32),
         shadowColor: COLOR.BLACK,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
@@ -147,6 +121,8 @@ class MateriScreen extends Component {
           width: horizontalScale(186),
           height: verticalScale(186),
           borderRadius: 100,
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
           <Image source={illustration} />
         </View>
@@ -162,12 +138,12 @@ class MateriScreen extends Component {
           <Text style={{
             color: COLOR.WHITE,
             fontFamily: Font.NunitoBold,
-            fontSize: moderateScale(16),
+            fontSize: moderateScale(18),
           }}>{'Materi ' + (index + 1) + ': ' + title}</Text>
           <Text style={{
             color: COLOR.WHITE,
             fontFamily: Font.NunitoSemiBold,
-            fontSize: moderateScale(12),
+            fontSize: moderateScale(14),
             marginTop: verticalScale(12),
             marginBottom: verticalScale(14),
             textAlign: 'center',
@@ -179,8 +155,9 @@ class MateriScreen extends Component {
           }}>
             <Text style={{
               color: COLOR.WHITE,
+              fontSize: moderateScale(14),
               fontFamily: Font.NunitoBold,
-            }}>{unitFinished + " / " + unitTotal}</Text>
+            }}>{unitFinished + " / " + unitTotal + " UNIT"}</Text>
 
             {unitStatus === 3 &&
               <View style={{
@@ -202,6 +179,7 @@ class MateriScreen extends Component {
                 <Text style={{
                   color: COLOR.WHITE,
                   fontFamily: Font.NunitoSemiBold,
+                  fontSize: moderateScale(14),
                   marginLeft: horizontalScale(4),
                 }}>{this.getUnitStatus(unitStatus)}</Text>
               </View>
@@ -211,15 +189,15 @@ class MateriScreen extends Component {
 
           <TouchableOpacity style={{
             backgroundColor: COLOR.WHITE,
-            paddingVertical: verticalScale(12),
+            paddingVertical: verticalScale(8),
             paddingHorizontal: moderateScale(18),
             borderRadius: 20,
             marginTop: 12,
           }}>
             <Text style={{
               color: COLOR.CIYAN_Opaque,
-              fontFamily: Font.NunitoBold,
-              fontSize: 12
+              fontFamily: Font.NunitoExtraBold,
+              fontSize: moderateScale(14)
             }}>
               {this.getButtonStatus(unitStatus)}
             </Text>
@@ -240,13 +218,19 @@ class MateriScreen extends Component {
         />
         <View style={styles.margin}>
           {this._renderSwipeMenu()}
-          
-          {/* <Pagination
+
+          <Pagination
             data={Materi}
-            scrollOffsetAnimatedValue={this.scrollOffsetAnimatedValue}
-            positionAnimatedValue={this.positionAnimatedValue}
-          /> */}
+            activeIndex={this.state.position}
+            actionItem={(index)=> {
+              if(this.refPagerView){
+                this.refPagerView.current.setPage(index)
+              }
+            }}
+          />
         </View>
+
+
       </SafeAreaView>
     )
   }

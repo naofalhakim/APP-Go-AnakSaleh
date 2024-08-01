@@ -104,101 +104,36 @@ class MateriScreen extends Component {
   _renderContainerMateri(data, index) {
     const { illustration = ICON.ic_diamond, title = '', description = '', unitFinished = 0, unitTotal = 0, unitStatus = 0, } = data
     return (
-      <View key={index} style={{
-        backgroundColor: COLOR.BLUE_EGG_DUCK,
-        borderRadius: 10,
-        padding: moderateScale(20),
-        margin: moderateScale(6),
-        marginBottom: moderateScale(32),
-        shadowColor: COLOR.BLACK,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        alignItems: 'center',
-      }}>
-        <View style={{
-          backgroundColor: COLOR.AQUARIUM_BLUE,
-          width: horizontalScale(186),
-          height: verticalScale(186),
-          borderRadius: 100,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+      <View key={index} style={styles.cardContainer}>
+        <View style={styles.imageCardContainer}>
           <Image source={illustration} />
         </View>
 
-        <View style={{
-          backgroundColor: COLOR.AQUARIUM_BLUE,
-          paddingHorizontal: horizontalScale(18),
-          paddingVertical: verticalScale(12),
-          borderRadius: moderateScale(10),
-          marginTop: verticalScale(15),
-          alignItems: 'center',
-        }}>
-          <Text style={{
-            color: COLOR.WHITE,
-            fontFamily: Font.NunitoBold,
-            fontSize: moderateScale(18),
-          }}>{'Materi ' + (index + 1) + ': ' + title}</Text>
-          <Text style={{
-            color: COLOR.WHITE,
-            fontFamily: Font.NunitoSemiBold,
-            fontSize: moderateScale(14),
-            marginTop: verticalScale(12),
-            marginBottom: verticalScale(14),
-            textAlign: 'center',
-          }}>{description}</Text>
+        <View style={styles.contentBox}>
+          <Text style={styles.contentTitle}>{'Materi ' + (index + 1) + ': ' + title}</Text>
+          <Text style={styles.contentDesc}>{description}</Text>
 
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-            <Text style={{
-              color: COLOR.WHITE,
-              fontSize: moderateScale(14),
-              fontFamily: Font.NunitoBold,
-            }}>{unitFinished + " / " + unitTotal + " UNIT"}</Text>
+            <Text style={styles.textUnit}>{unitFinished + " / " + unitTotal + " UNIT"}</Text>
 
             {unitStatus === 3 &&
-              <View style={{
-                backgroundColor: COLOR.WHITE,
-                height: verticalScale(16),
-                borderRadius: 10,
-                width: horizontalScale(2),
-                marginHorizontal: horizontalScale(12),
-              }} />
+              <View style={styles.lineSeparator} />
             }
 
             {unitStatus === 3 &&
-              <View style={{
-                flexDirection: 'row',
-                marginBottom: verticalScale(12),
-                marginTop: verticalScale(8)
-              }}>
+              <View style={styles.contentStatusContainer}>
                 <Image source={ICON.icon_status_unit} />
-                <Text style={{
-                  color: COLOR.WHITE,
-                  fontFamily: Font.NunitoSemiBold,
-                  fontSize: moderateScale(14),
-                  marginLeft: horizontalScale(4),
-                }}>{this.getUnitStatus(unitStatus)}</Text>
+                <Text style={styles.contentStatusText}>{this.getUnitStatus(unitStatus)}</Text>
               </View>
             }
 
           </View>
 
-          <TouchableOpacity style={{
-            backgroundColor: COLOR.WHITE,
-            paddingVertical: verticalScale(8),
-            paddingHorizontal: moderateScale(18),
-            borderRadius: 20,
-            marginTop: 12,
-          }}>
-            <Text style={{
-              color: COLOR.CIYAN_Opaque,
-              fontFamily: Font.NunitoExtraBold,
-              fontSize: moderateScale(14)
-            }}>
+          <TouchableOpacity style={styles.buttonStatus}>
+            <Text style={styles.buttonStatusText}>
               {this.getButtonStatus(unitStatus)}
             </Text>
           </TouchableOpacity>

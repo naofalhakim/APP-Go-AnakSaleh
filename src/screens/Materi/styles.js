@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { horizontalScale, moderateScale } from "../../utils/Metric";
+import { horizontalScale, moderateScale, verticalScale } from "../../utils/Metric";
 import COLOR from "../../utils/ColorSystem";
 import Font from "../../assets/fonts";
 
@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   margin: {
-    padding: moderateScale(22),
+    paddingVertical: verticalScale(22),
+    paddingHorizontal: horizontalScale(12),
     flex: 1,
   },
   pointText: {

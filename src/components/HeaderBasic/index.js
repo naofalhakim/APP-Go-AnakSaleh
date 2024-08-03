@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: moderateScale(20),
-    fontFamily: Font.NunitoRegular,
+    fontFamily: Font.NunitoSemiBold,
   },
   iconHeader: { width: horizontalScale(148), height: verticalScale(18), },
 })

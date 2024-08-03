@@ -4,7 +4,7 @@ import styles from './styles';
 import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
 
-const MateriSub = [
+const MateriSub1 = [
   {
     id: 1,
     title: 'Pengertian adiksi game online',
@@ -26,6 +26,25 @@ const MateriSub = [
     status: 1, //on going
   },
 ]
+const MateriSub2 = [
+  {
+    id: 1,
+    title: 'Pengertian Muraqabah',
+    status: 3, //done
+  },
+  {
+    id: 2,
+    title: 'Manfaat Muraqabah',
+    status: 2, //on going
+  },
+  {
+    id: 3,
+    title: 'Tahapan dalam pelaksanaan muraqabah',
+    status: 1, //locked
+  },
+]
+
+const MateriSub = [MateriSub1, MateriSub2]
 
 class LearningModuleScreen extends Component {
   constructor(props) {
@@ -35,6 +54,8 @@ class LearningModuleScreen extends Component {
     this.state = {
       position: 0,
     }
+
+    this.dataMateri = MateriSub[props.route.params.id - 1]
   }
 
 
@@ -54,7 +75,7 @@ class LearningModuleScreen extends Component {
             <Text style={styles.headerText}>Status</Text>
           </View>
           <FlatList
-            data={MateriSub}
+            data={this.dataMateri}
             renderItem={({ item }) =>
               <View key={item.id} style={styles.headerContent}>
                 <View style={[styles.itemContent, styles.shapeContent]}>

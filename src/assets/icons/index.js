@@ -9,6 +9,9 @@ const ICON = {
   icon_desc_menu: require('./icon_desc_menu.png'),
   icon_profile_menu: require('./icon_profile_menu.png'),
   icon_status_unit: require('./ic_status_unit.png'),
+  icon_materi_ongoing: require('./ic_materi_ongoing.png'),
+  icon_materi_lock: require('./ic_materi_lock.png'),
+  icon_materi_done: require('./ic_materi_done.png'),
 };
 
 export default ICON;

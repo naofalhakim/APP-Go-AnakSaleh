@@ -11,6 +11,7 @@ import COLOR from './utils/ColorSystem';
 import MainMenu from './screens/MainMenu';
 import UpdateProfile from './screens/UpdateProfile';
 import UpdatePassword from './screens/UpdatePassword';
+import LearningModuleScreen from './screens/LearningModule';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function AppNav() {
                 <Stack.Screen name={SCREEN_NAME.UPDATE_PROFILE} component={UpdateProfile} />
                 <Stack.Screen name={SCREEN_NAME.UPDATE_PASSWORD} component={UpdatePassword} />
                 <Stack.Screen name={SCREEN_NAME.MAIN_MENU} component={MainMenu} />
+                <Stack.Screen name={SCREEN_NAME.LEARNING_MODULE} component={LearningModuleScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

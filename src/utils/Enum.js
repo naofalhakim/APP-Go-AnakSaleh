@@ -4,6 +4,7 @@ const SCREEN_NAME = {
     PROFILE: 'Profile',
     GAMES: 'Games',
     MATERI: 'Materi',
+    LEARNING_MODULE: 'LearningModule',
     UPDATE_PROFILE: 'UpdateProfile',
     UPDATE_PASSWORD: 'UpdatePassword',
     FORGOT_PASSWORD: 'ForgotPassword',

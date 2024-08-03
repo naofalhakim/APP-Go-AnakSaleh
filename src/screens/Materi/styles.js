@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: 100,
-    backgroundColor: isActive ? COLOR.BLUE_PRIMER : COLOR.BLUISH_GREY,
+    backgroundColor: isActive ? COLOR.BLUE_EGG_DUCK : COLOR.GREY_CLOUD,
     shadowColor: COLOR.BLACK,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,

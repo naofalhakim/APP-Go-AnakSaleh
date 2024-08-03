@@ -12,6 +12,7 @@ import PagerView from 'react-native-pager-view';
 
 const Materi = [
   {
+    id: 1,
     title: "Adiksi Game Online",
     description: "Penjelasan singkat terkait silabus materi 1 / intro materi contoh: materi 1 akan mempelajari apa itu adiksi game online dll.",
     unitTotal: 4,
@@ -20,6 +21,7 @@ const Materi = [
     thumbnail: "image"
   },
   {
+    id: 2,
     title: "Muraqabah",
     description: "Penjelasan singkat terkait silabus materi 2 / intro materi contoh: materi 2 akan mempelajari apa itu Muraqabah.",
     unitTotal: 4,
@@ -102,7 +104,7 @@ class MateriScreen extends Component {
   }
 
   _renderContainerMateri(data, index) {
-    const { illustration = ICON.ic_diamond, title = '', description = '', unitFinished = 0, unitTotal = 0, unitStatus = 0, } = data
+    const { illustration = ICON.ic_diamond, id, title = '', description = '', unitFinished = 0, unitTotal = 0, unitStatus = 0 } = data
     return (
       <View key={index} style={styles.cardContainer}>
         <View style={styles.imageCardContainer}>
@@ -110,7 +112,7 @@ class MateriScreen extends Component {
         </View>
 
         <View style={styles.contentBox}>
-          <Text style={styles.contentTitle}>{'Materi ' + (index + 1) + ': ' + title}</Text>
+          <Text style={styles.contentTitle}>{'Materi ' + id + ': ' + title}</Text>
           <Text style={styles.contentDesc}>{description}</Text>
 
           <View style={{
@@ -132,7 +134,10 @@ class MateriScreen extends Component {
 
           </View>
 
-          <TouchableOpacity style={styles.buttonStatus}>
+          <TouchableOpacity
+            style={styles.buttonStatus}
+            onPress={() => this.props.navigation.navigate(SCREEN_NAME.LEARNING_MODULE, { ...data})
+            }>
             <Text style={styles.buttonStatusText}>
               {this.getButtonStatus(unitStatus)}
             </Text>
@@ -157,8 +162,8 @@ class MateriScreen extends Component {
           <Pagination
             data={Materi}
             activeIndex={this.state.position}
-            actionItem={(index)=> {
-              if(this.refPagerView){
+            actionItem={(index) => {
+              if (this.refPagerView) {
                 this.refPagerView.current.setPage(index)
               }
             }}

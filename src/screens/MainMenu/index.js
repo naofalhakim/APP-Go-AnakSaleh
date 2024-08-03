@@ -17,7 +17,7 @@ class MainMenu extends Component {
 
   render() {
     return (
-      <Tab.Navigator initialRouteName={SCREEN_NAME.PROFILE}
+      <Tab.Navigator initialRouteName={SCREEN_NAME.MATERI}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             if (route.name === SCREEN_NAME.PROFILE) {

@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     paddingRight: horizontalScale(18),
     height: horizontalScale(70),
     alignItems:'center',
-    backgroundColor:'pink',
     marginVertical: verticalScale(20),
     borderRadius: moderateScale(20),
   },
@@ -31,6 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'flex-start',
     flex: .8,
+    back
   },
   headerText:{
     fontFamily: Font.NunitoExtraBold,

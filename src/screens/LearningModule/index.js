@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Animated, FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
+import IMG from '../../assets/images';
 
 const MateriSub1 = [
   {
@@ -77,14 +78,15 @@ class LearningModuleScreen extends Component {
           <FlatList
             data={this.dataMateri}
             renderItem={({ item }) =>
-              <View key={item.id} style={styles.headerContent}>
-                <View style={[styles.itemContent, styles.shapeContent]}>
+              <View key={item.id} style={styles.headerContent} >
+                <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={IMG.bgMateri} resizeMode="cover">
                   <Text style={styles.itemNumberText}> {item.id}</Text>
                   <Text style={styles.itemText}> {item.title}</Text>
-                </View>
-                <View style={[styles.shapeContent]}>
+                </ImageBackground>
+                <ImageBackground source={IMG.bgMateri} resizeMode="cover" style={[styles.shapeContent]}>
                   <Text>{item.status}</Text>
-                </View>
+                </ImageBackground>
+
               </View>
             }
           />

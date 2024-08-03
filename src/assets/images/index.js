@@ -1,4 +1,4 @@
 const IMG = {
-  bgSplash: require('./bg_splash.png'),
+  bgMateri: require('./materi-bg.png'),
 };
 export default IMG;

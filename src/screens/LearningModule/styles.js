@@ -29,8 +29,11 @@ const styles = StyleSheet.create({
   itemContent:{
     flexDirection: "row",
     justifyContent: 'flex-start',
-    flex: .8,
-    back
+    flex: .9,
+  },
+  itemContentStatus:{
+    width: horizontalScale(70),
+    justifyContent: 'center',
   },
   headerText:{
     fontFamily: Font.NunitoExtraBold,

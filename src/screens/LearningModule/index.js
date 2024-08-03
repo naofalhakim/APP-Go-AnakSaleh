@@ -4,6 +4,7 @@ import styles from './styles';
 import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
 import IMG from '../../assets/images';
+import ICON from '../../assets/icons';
 
 const MateriSub1 = [
   {
@@ -44,8 +45,8 @@ const MateriSub2 = [
     status: 1, //locked
   },
 ]
-
 const MateriSub = [MateriSub1, MateriSub2]
+
 
 class LearningModuleScreen extends Component {
   constructor(props) {
@@ -57,8 +58,33 @@ class LearningModuleScreen extends Component {
     }
 
     this.dataMateri = MateriSub[props.route.params.id - 1]
+    this._renderMateri = this._renderMateri.bind(this)
   }
 
+  _getUnitStatus(status) {
+    switch (status) {
+      case 1:
+        return ICON.icon_materi_lock;
+      case 2:
+        return ICON.icon_materi_ongoing;
+      case 3:
+        return ICON.icon_materi_done;
+    }
+  }
+
+  _renderMateri({item}) {
+    return (
+      <TouchableOpacity activeOpacity={1} key={item.id} style={styles.headerContent} >
+        <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={IMG.bgMateri} resizeMode="stretch">
+          <Text style={styles.itemNumberText}> {item.id}</Text>
+          <Text style={styles.itemText}> {item.title}</Text>
+        </ImageBackground>
+        <ImageBackground source={IMG.bgMateriStatus} resizeMode="stretch" style={[styles.itemContentStatus, styles.shapeContent]}>
+          <Image source={this._getUnitStatus(item.status)} />
+        </ImageBackground>
+      </TouchableOpacity>
+    )
+  }
 
   render() {
     let { title = '', id } = this.props.route.params;
@@ -77,20 +103,8 @@ class LearningModuleScreen extends Component {
           </View>
           <FlatList
             data={this.dataMateri}
-            renderItem={({ item }) =>
-              <View key={item.id} style={styles.headerContent} >
-                <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={IMG.bgMateri} resizeMode="cover">
-                  <Text style={styles.itemNumberText}> {item.id}</Text>
-                  <Text style={styles.itemText}> {item.title}</Text>
-                </ImageBackground>
-                <ImageBackground source={IMG.bgMateri} resizeMode="cover" style={[styles.shapeContent]}>
-                  <Text>{item.status}</Text>
-                </ImageBackground>
-
-              </View>
-            }
+            renderItem={this._renderMateri}
           />
-
         </View>
       </SafeAreaView>
     )

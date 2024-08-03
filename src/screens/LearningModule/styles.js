@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     alignItems:'center',
     marginVertical: verticalScale(20),
     borderRadius: moderateScale(20),
+    shadowColor: COLOR.BLACK,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   itemContent:{
     flexDirection: "row",
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
   },
   itemText:{
-    fontFamily: Font.NunitoMedium,
+    fontFamily: Font.NunitoLight,
     fontSize: moderateScale(18),
     textAlign: 'left'
   },

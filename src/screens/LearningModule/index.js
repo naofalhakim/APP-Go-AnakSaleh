@@ -27,6 +27,11 @@ const MateriSub1 = [
     title: 'Healthy gaming',
     status: 1, //on going
   },
+  { // last object will always show this object
+    id: 2,
+    title: 'Materi 2: Muraqabah',
+    status: 'next'
+  },
 ]
 const MateriSub2 = [
   {
@@ -72,15 +77,29 @@ class LearningModuleScreen extends Component {
     }
   }
 
-  _renderMateri({item}) {
-    return (
-      <TouchableOpacity activeOpacity={1} key={item.id} style={styles.headerContent} >
+  _renderMateri({ item }) {
+    const { status = '', id = '', title = '' } = item
+    return status === 'next' ? this._renderMateriNext(item) : (
+      <TouchableOpacity activeOpacity={1} key={id} style={styles.headerContent} 
+        onPress={()=>{}}
+      >
         <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={IMG.bgMateri} resizeMode="stretch">
-          <Text style={styles.itemNumberText}> {item.id}</Text>
-          <Text style={styles.itemText}> {item.title}</Text>
+          <Text style={styles.itemNumberText}>{id}</Text>
+          <Text style={styles.itemText}> {title}</Text>
         </ImageBackground>
         <ImageBackground source={IMG.bgMateriStatus} resizeMode="stretch" style={[styles.itemContentStatus, styles.shapeContent]}>
-          <Image source={this._getUnitStatus(item.status)} />
+          <Image source={this._getUnitStatus(status)} />
+        </ImageBackground>
+      </TouchableOpacity>
+    )
+  }
+
+  _renderMateriNext(item) {
+    const { id = '', title = '', active = false, } = item
+    return (
+      <TouchableOpacity activeOpacity={1} key={'next'+id} style={styles.headerContent} onPress={()=>{}}>
+        <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={active ? IMG.bgMateri : IMG.bgMateriGrey} resizeMode="stretch">
+          <Text style={styles.itemNumberText}>{title}</Text>
         </ImageBackground>
       </TouchableOpacity>
     )

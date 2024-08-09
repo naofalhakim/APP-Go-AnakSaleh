@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Animated, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
 import PointBar from '../../components/PointBar';
 import COLOR from '../../utils/ColorSystem';
-import { horizontalScale, moderateScale, verticalScale } from '../../utils/Metric';
-import Font from '../../assets/fonts';
+import { horizontalScale } from '../../utils/Metric';
 import ICON from '../../assets/icons';
 import PagerView from 'react-native-pager-view';
 

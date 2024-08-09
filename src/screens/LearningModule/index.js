@@ -5,55 +5,10 @@ import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
 import IMG from '../../assets/images';
 import ICON from '../../assets/icons';
-
-const MateriSub1 = [
-  {
-    id: 1,
-    title: 'Pengertian adiksi game online',
-    status: 3, //done
-  },
-  {
-    id: 2,
-    title: 'Akibat negatif game online',
-    status: 2, //on going
-  },
-  {
-    id: 3,
-    title: 'Cara mengatasi adiksi game online',
-    status: 1, //locked
-  },
-  {
-    id: 4,
-    title: 'Healthy gaming',
-    status: 1, //locked
-  },
-  { // last object will always show this object
-    id: 2,
-    title: 'Materi 2: Muraqabah',
-    status: 'next'
-  },
-]
-const MateriSub2 = [
-  {
-    id: 1,
-    title: 'Pengertian Muraqabah',
-    status: 3, //done
-  },
-  {
-    id: 2,
-    title: 'Manfaat Muraqabah',
-    status: 2, //on going
-  },
-  {
-    id: 3,
-    title: 'Tahapan dalam pelaksanaan muraqabah',
-    status: 1, //locked
-  },
-]
+import { MateriSub1, MateriSub2 } from '../../utils/DataDummy';
 
 //todo: need to load API Materi here, with this kind of data type
 const MateriSub = [MateriSub1, MateriSub2]
-
 
 class LearningModuleScreen extends Component {
   constructor(props) {
@@ -63,7 +18,7 @@ class LearningModuleScreen extends Component {
     this.state = {
       position: 0,
     }
-
+    this.idMateri = props.route.params.id - 1
     this.dataMateri = MateriSub[props.route.params.id - 1]
     this._renderMateri = this._renderMateri.bind(this)
   }
@@ -94,7 +49,7 @@ class LearningModuleScreen extends Component {
       <TouchableOpacity activeOpacity={1} key={id} style={styles.headerContent} 
         onPress={()=> {
           if(isActive){
-            this.props.navigation.navigate(SCREEN_NAME.ELEARNING_SCREEN);
+            this.props.navigation.navigate(SCREEN_NAME.ELEARNING_SCREEN, {idMateri: this.idMateri, idSubMateri: id});
           }
         }}
       >

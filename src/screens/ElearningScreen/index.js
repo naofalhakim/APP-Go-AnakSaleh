@@ -6,13 +6,14 @@ import { SCREEN_NAME } from '../../utils/Enum';
 import PointBar from '../../components/PointBar';
 import COLOR from '../../utils/ColorSystem';
 import ICON from '../../assets/icons';
+import { MateriSub1, MateriSub2 } from '../../utils/DataDummy';
 
 const Content = [
   {
   id: 1,
   title: "Materi 1 : Adiksi Game Online",
-  subTitle: "Pengertian adiksi game online",
-  thumbnail: 'link',
+  subMateri: MateriSub1,
+  module:{},
   contents: [
     'content text 1',
     'content text 2',
@@ -34,15 +35,43 @@ const Content = [
 }
 ]
 
+const MateriContent = [MateriSub1, MateriSub2]
+
+const _renderSubHeader = () => {
+  return(
+    <View></View>
+  )
+}
+
 class ElearningScreen extends Component {
   constructor(props) {
     super(props);
 
-    this._renderContainerMateri = this._renderContainer
+    this._renderContainerMateri = this._renderContainerMateri.bind(this)
+    this._getMateri = this._getMateri.bind(this)
 
     this.state = {
       position: 0,
     }
+
+    this.contents = {}
+    this.idMateri = props.route.params.idMateri
+    this.idSubMateri = props.route.params.idSubMateri
+  }
+
+  componentDidMount(){
+    // this.contents = Content[]
+    this._getMateri()
+  }
+
+  _getMateri(){
+    let subMateriContent = MateriContent[this.idMateri];
+    
+    let materi = subMateriContent.find((subMateri)=>
+      subMateri.id === this.idSubMateri
+    )
+
+    console.log(materi, 'materi')
   }
 
   _renderContainerMateri(data) {
@@ -88,6 +117,10 @@ class ElearningScreen extends Component {
 
       </View>
     )
+  }
+
+  _renderSubMater(){
+
   }
 
   render() {

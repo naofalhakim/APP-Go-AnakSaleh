@@ -8,27 +8,7 @@ import COLOR from '../../utils/ColorSystem';
 import { horizontalScale } from '../../utils/Metric';
 import ICON from '../../assets/icons';
 import PagerView from 'react-native-pager-view';
-
-const Materi = [
-  {
-    id: 1,
-    title: "Adiksi Game Online",
-    description: "Penjelasan singkat terkait silabus materi 1 / intro materi contoh: materi 1 akan mempelajari apa itu adiksi game online dll.",
-    unitTotal: 4,
-    unitFinished: 4,
-    unitStatus: 3,
-    thumbnail: "image"
-  },
-  {
-    id: 2,
-    title: "Muraqabah",
-    description: "Penjelasan singkat terkait silabus materi 2 / intro materi contoh: materi 2 akan mempelajari apa itu Muraqabah.",
-    unitTotal: 4,
-    unitFinished: 1,
-    unitStatus: 2,
-    thumbnail: "image"
-  }
-]
+import { Materi } from '../../utils/DataDummy';
 
 const Pagination = ({
   data,

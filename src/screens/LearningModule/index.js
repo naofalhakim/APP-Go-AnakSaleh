@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, ImageBackground, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import HeaderBasic from '../../components/HeaderBasic';
 import { SCREEN_NAME } from '../../utils/Enum';
@@ -25,7 +25,7 @@ const MateriSub1 = [
   {
     id: 4,
     title: 'Healthy gaming',
-    status: 1, //on going
+    status: 1, //locked
   },
   { // last object will always show this object
     id: 2,
@@ -50,6 +50,8 @@ const MateriSub2 = [
     status: 1, //locked
   },
 ]
+
+//todo: need to load API Materi here, with this kind of data type
 const MateriSub = [MateriSub1, MateriSub2]
 
 
@@ -66,7 +68,7 @@ class LearningModuleScreen extends Component {
     this._renderMateri = this._renderMateri.bind(this)
   }
 
-  _getUnitStatus(status) {
+  _getIconStatus(status) {
     switch (status) {
       case 1:
         return ICON.icon_materi_lock;
@@ -77,28 +79,47 @@ class LearningModuleScreen extends Component {
     }
   }
 
-  _renderMateri({ item }) {
+  _checkIsPreviousMateriDone(index){
+    if(index > 0){
+      return this.dataMateri[index - 1].status === 3 //3: materi done
+    }
+    return false 
+  }
+
+  _renderMateri({ item, index }) {
+
     const { status = '', id = '', title = '' } = item
-    return status === 'next' ? this._renderMateriNext(item) : (
+    let isActive = status > 1
+    return status === 'next' ? this._renderMateriNext(item, index) : (
       <TouchableOpacity activeOpacity={1} key={id} style={styles.headerContent} 
-        onPress={()=>{}}
+        onPress={()=> {
+          if(isActive){
+            this.props.navigation.navigate(SCREEN_NAME.ELEARNING_SCREEN);
+          }
+        }}
       >
         <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={IMG.bgMateri} resizeMode="stretch">
           <Text style={styles.itemNumberText}>{id}</Text>
           <Text style={styles.itemText}> {title}</Text>
         </ImageBackground>
         <ImageBackground source={IMG.bgMateriStatus} resizeMode="stretch" style={[styles.itemContentStatus, styles.shapeContent]}>
-          <Image source={this._getUnitStatus(status)} />
+          <Image source={this._getIconStatus(status)} />
         </ImageBackground>
       </TouchableOpacity>
     )
   }
 
-  _renderMateriNext(item) {
-    const { id = '', title = '', active = false, } = item
+  _renderMateriNext(item, index) {
+    const { id = '', title = '', } = item
+    let isActive = this._checkIsPreviousMateriDone(index)
+
     return (
-      <TouchableOpacity activeOpacity={1} key={'next'+id} style={styles.headerContent} onPress={()=>{}}>
-        <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={active ? IMG.bgMateri : IMG.bgMateriGrey} resizeMode="stretch">
+      <TouchableOpacity activeOpacity={1} key={'next'+id} style={styles.headerContent} onPress={()=>{
+        if(isActive){
+          this.props.navigation.replace(SCREEN_NAME.LEARNING_MODULE, {...item})
+        }
+      }}>
+        <ImageBackground style={[styles.itemContent, styles.shapeContent]} source={isActive ? IMG.bgMateri : IMG.bgMateriGrey} resizeMode="stretch">
           <Text style={styles.itemNumberText}>{title}</Text>
         </ImageBackground>
       </TouchableOpacity>
